@@ -2,10 +2,9 @@ name: Code formatter and linter
 
 on:
   push:
-    branches: ["master", "main", "rewrite"]
+  pull_request:
 
-permissions:
-  contents: write
+  workflow_dispatch:
 
 jobs:
 
@@ -18,7 +17,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v3
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install Dependencies
         run: |
@@ -31,7 +30,10 @@ jobs:
           poetry run black .
       - name: Linting with ruff
         run: |
-          poetry run ruff .
+          poetry run ruff check .
       - name: Type checking with pyright
         run: |
           poetry run pyright .
+      - name: Run tests with pytest
+        run: |
+          poetry run pytest

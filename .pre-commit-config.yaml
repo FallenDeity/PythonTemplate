@@ -43,5 +43,11 @@ repos:
           - id: ruff
             name: ruff
             pass_filenames: false
-            entry: poetry run ruff .
+            entry: poetry run ruff check .
+            language: python
+
+          - id: pytest
+            name: pytest
+            pass_filenames: false
+            entry: poetry run pytest
             language: python
